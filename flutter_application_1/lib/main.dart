@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: ' ImageGenerator'),
+      home: const ImageGenerator(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ImageGenerator extends StatefulWidget {
+  const ImageGenerator({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -35,10 +35,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _ImageGeneratorState createState() => _ImageGeneratorState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class› ImageGeneratorState extends State<ImageGenerator> {
   int _counter = 0;
 
   void _incrementCounter() {
