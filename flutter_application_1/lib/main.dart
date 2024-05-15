@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,30 +8,20 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ImageGeneretor',
+      title: 'Image Generator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ImageGenerator(),
+      home: const ImageGenerator(title: 'Image Generator'),
     );
   }
 }
 
 class ImageGenerator extends StatefulWidget {
-  const ImageGenerator({Key? key}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  const ImageGenerator({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -40,21 +29,52 @@ class ImageGenerator extends StatefulWidget {
   _ImageGeneratorState createState() => _ImageGeneratorState();
 }
 
-class› ImageGeneratorState extends State<ImageGenerator> {
-  Color _backGgroundColor = Colors.white;
+class _ImageGeneratorState extends State<ImageGenerator> {
+  Color _backgroundColor = Colors.white;
 
   void _generateImage() {
     setState(() {
-      _backGgroundColor = _getRandomColor();
+      _backgroundColor = _getRandomColor();
     });
   }
-  Color _getRandomColor(){
+
+  Color _getRandomColor() {
     Random random = Random();
     return Color.fromRGBO(
       random.nextInt(256),
       random.nextInt(256),
       random.nextInt(256),
-      1.0,);
+      1.0,
+    );
   }
-  
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Container(
+          width: 200,
+          height: 200,
+          color: _backgroundColor,
+          child: const Center(
+            child: Text(
+              'Tap to Generate',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _generateImage,
+        tooltip: 'Generate',
+        child: const Icon(Icons.refresh),
+      ),
+    );
+  }
 }
